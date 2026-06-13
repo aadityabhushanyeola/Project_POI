@@ -1,0 +1,53 @@
+# Two-camera CCTV suspicious activity detection prototype.
+# Sources can be:
+#   - RTSP URL: rtsp://username:password@camera_ip:554/stream
+#   - Webcam index: 0
+#   - Video file: samples/test_video.mp4
+
+cameras:
+  - id: cam_1
+    name: Front Door
+    source: 0
+    enabled: true
+    # Polygon points for restricted area. Leave empty to disable intrusion.
+    # Format: [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
+    restricted_zone: []
+  - id: cam_2
+    name: Back Side
+    source: samples/camera2.mp4
+    enabled: false
+    restricted_zone: []
+
+model:
+  # YOLO nano is the best first choice for RTX 3050 laptop GPU and 2 streams.
+  weights: yolov8n.pt
+  confidence: 0.35
+  image_size: 640
+  device: auto  # auto, cpu, 0
+  frame_skip: 2
+
+tracking:
+  max_lost_frames: 20
+  match_distance_px: 80
+  min_confirmed_frames: 3
+
+events:
+  cooldown_seconds: 20
+  running_speed_px_per_sec: 180
+  running_min_duration_seconds: 1.2
+  chase_distance_px: 180
+  fall_aspect_ratio_threshold: 1.15
+  fall_center_drop_px: 45
+  fall_min_duration_seconds: 1.5
+  fight_distance_px: 120
+  fight_motion_px_per_sec: 120
+  fight_min_duration_seconds: 1.5
+
+alerts:
+  telegram_enabled: true
+  email_enabled: false
+  save_snapshots: true
+
+logging:
+  csv_path: events/events.csv
+  snapshot_dir: events/snapshots

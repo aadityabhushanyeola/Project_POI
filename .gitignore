@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.cache/
+Ultralytics/
+events/*.csv
+events/snapshots/*.jpg
+*.log
+yolov8*.pt
