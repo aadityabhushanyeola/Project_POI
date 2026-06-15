@@ -7,15 +7,15 @@
 cameras:
   - id: cam_1
     name: Front Door
-    source: 0
+    source: samples/Chasing1.mp4
     enabled: true
     # Polygon points for restricted area. Leave empty to disable intrusion.
     # Format: [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
     restricted_zone: []
   - id: cam_2
     name: Back Side
-    source: samples/camera2.mp4
-    enabled: false
+    source: samples/Falling1.mp4
+    enabled: true
     restricted_zone: []
 
 model:

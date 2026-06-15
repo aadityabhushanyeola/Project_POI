@@ -97,6 +97,10 @@ def run_camera(
 
     print(f"Starting {camera_config.get('name', camera_config['id'])}: {camera_config['source']}")
 
+    if not no_display:
+        cv2.namedWindow(camera_config["id"], cv2.WINDOW_NORMAL)
+        cv2.resizeWindow(camera_config["id"], 1280, 720)
+
     for video_frame in stream.frames():
         frame = video_frame.image
         detections = detector.detect(frame)
@@ -127,7 +131,6 @@ def run_camera(
 
     if not no_display:
         cv2.destroyWindow(camera_config["id"])
-
 
 def _save_snapshot(snapshot_dir: Path, event_type: str, camera_id: str, frame) -> str:
     timestamp = time.strftime("%Y%m%d_%H%M%S")
