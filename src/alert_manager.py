@@ -75,8 +75,9 @@ class AlertManager:
 
 
 def _format_message(event: SuspiciousEvent) -> str:
+    title = getattr(event, "alert_title", "Suspicious Activity Detected")
     return (
-        "Suspicious Activity Detected\n"
+        f"{title}\n"
         f"Camera: {event.camera_name} ({event.camera_id})\n"
         f"Event: {event.event_type}\n"
         f"Track ID: {event.track_id if event.track_id is not None else 'multiple/unknown'}\n"

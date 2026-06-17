@@ -9,6 +9,7 @@ Python prototype for an academic and home-security CCTV project. It reads CCTV/R
 - Possible chase behavior when two people move fast near each other
 - Possible fall using bounding-box shape and downward motion
 - Possible fight using close distance plus high motion intensity
+- Home safety hazards are available in `README_HOME_SAFETY.md`.
 
 This project detects suspicious activity indicators, not confirmed crimes.
 

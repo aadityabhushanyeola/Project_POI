@@ -1,0 +1,54 @@
+# Home safety analysis add-on. Sources support webcam index, video file, or RTSP URL.
+cameras:
+  - id: cam_1
+    name: Living Room
+    source: samples/Chasing1.mp4
+    enabled: true
+    # Walking path polygons: hazards inside these zones are more severe.
+    walking_paths:
+      - [[40, 260], [620, 260], [620, 470], [40, 470]]
+    # Optional zones where children commonly move/play.
+    child_zones: []
+  - id: cam_2
+    name: Hallway
+    source: samples/Falling1.mp4
+    enabled: true
+    walking_paths:
+      - [[30, 220], [610, 220], [610, 470], [30, 470]]
+    child_zones: []
+
+model:
+  weights: yolov8n.pt
+  confidence: 0.35
+  image_size: 640
+  device: auto
+  frame_skip: 5
+
+hazards:
+  sharp_corner_min_corners: 18
+  wet_floor_min_area: 900
+  obstacle_classes:
+    - chair
+    - couch
+    - potted plant
+    - bed
+    - dining table
+    - suitcase
+    - backpack
+    - handbag
+    - sports ball
+    - bottle
+    - book
+  severe_confidence: 0.72
+  recurring_alert_count: 5
+
+alerts:
+  telegram_enabled: false
+  email_enabled: false
+  save_snapshots: true
+
+logging:
+  csv_path: events/home_safety/hazards.csv
+  jsonl_path: events/home_safety/hazards.jsonl
+  snapshot_dir: events/home_safety/snapshots
+  recurring_path: events/home_safety/recurring_zones.json
